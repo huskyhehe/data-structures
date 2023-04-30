@@ -4,6 +4,7 @@ class UnionFind:
         self.rank = [1] * size
 
     def find(self, x: int) -> int:
+        # path compression optimization
         if x == self.root[x]:
             return x
         return self.find(self.root[x])
@@ -13,6 +14,7 @@ class UnionFind:
         ry = self.find(y)
         if rx == ry:
             return
+        # rank-based union optimization
         if self.rank[rx] >= self.rank[ry]:
             self.root[ry] = rx
             rank_up = 1 if self.rank[rx] == self.rank[ry] else 0
