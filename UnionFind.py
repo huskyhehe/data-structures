@@ -3,8 +3,9 @@ class UnionFind:
         self.root = [i for i in range(size)]
         self.rank = [1] * size
 
-    def find(self, x: int) -> int:
+    def find(self, x: int) -> int:        # return root of x
         # path compression optimization
+        # if == x's root
         if x == self.root[x]:
             return x
         return self.find(self.root[x])
