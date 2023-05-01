@@ -1,24 +1,24 @@
 class UnionFind:
     def __init__(self, size: int):
-        self.root = [i for i in range(size)]
+        self.root = list(range(size))
         self.rank = [1] * size
 
     def find(self, x: int) -> int:        # return root of x
         # path compression optimization
-        # if == x's root
+        # if x == x's root
         if x == self.root[x]:
             return x
         return self.find(self.root[x])
 
     def union(self, x: int, y: int) -> None:
-        rx = self.find(x)
-        ry = self.find(y)
+        rx, ry = self.find(x), self.find(y)
         if rx == ry:
             return
         # rank-based union optimization
-        if self.rank[rx] >= self.rank[ry]:
+        rank_x, rank_y = self.rank[rx], self.rank[ry]
+        if rank_x >= rank_y:
             self.root[ry] = rx
-            rank_up = 1 if self.rank[rx] == self.rank[ry] else 0
+            rank_up = 1 if rank_x == rank_y else 0
             self.rank[rx] += rank_up
         else:
             self.root[rx] = ry
